@@ -51,10 +51,10 @@ const DetailsTable = forwardRef(function DetailsTable(props, senderRef) {
 
     axios
       .post("/send", selectedData)
-      .then(({ email }) => {
+      .then(({ data }) => {
         setSelectedRows([]);
         setLoading(false);
-        toast(`Email sent to ${email}`);
+        toast(`Email sent to ${data.email}`);
       })
       .catch((error) => {
         toast("Error sending emails:", error.message);
