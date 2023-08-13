@@ -11,7 +11,7 @@ import {
 } from "../../reducers/DetailsReducer/actionTypes";
 
 function FormModal({ handleModalVisibility, showModal }) {
-  const { state: userDetails, dispatch } = useContext(DetailsContext);
+  const { dispatch } = useContext(DetailsContext);
   const { userDetail, setUserDetail } = useContext(DetailContext);
 
   const handleInputChange = (e) => {
