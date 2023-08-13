@@ -114,7 +114,7 @@ const sendUserDetails = async (req, res) => {
 
     const message = {
       from: "ursvedantyetekar@gmail.com",
-      to: "uuvedant4@gmail.com",
+      to: "info@redpositive.in",
       subject: `User Details`,
       html: emailContent,
     };
