@@ -1,10 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import "./FormModal.css";
 import { DetailsContext } from "../../context/DetailsContext/DetailsContext";
 import { DetailContext } from "../../context/DetailContext/DetailContext";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  ADD_DETAIL,
+  EDIT_DETAIL,
+} from "../../reducers/DetailsReducer/actionTypes";
 
 function FormModal({ handleModalVisibility, showModal }) {
   const { state: userDetails, dispatch } = useContext(DetailsContext);
@@ -42,9 +46,9 @@ function FormModal({ handleModalVisibility, showModal }) {
   const addUserDetails = async () => {
     if (validateForm()) {
       axios
-        .post("http://localhost:5000/add", userDetail)
+        .post("/add", userDetail)
         .then(({ id }) =>
-          dispatch({ type: "ADD_DETAIL", payload: { ...userDetail, id } })
+          dispatch({ type: ADD_DETAIL, payload: { ...userDetail, id } })
         )
         .catch((error) => console.log(error.message));
       handleModalVisibility("");
@@ -54,8 +58,8 @@ function FormModal({ handleModalVisibility, showModal }) {
   const editUserDetails = async () => {
     if (validateForm()) {
       axios
-        .put(`http://localhost:5000/edit/${userDetail._id}`, userDetail)
-        .then(() => dispatch({ type: "EDIT_DETAIL", payload: userDetail }))
+        .put(`/edit/${userDetail._id}`, userDetail)
+        .then(() => dispatch({ type: EDIT_DETAIL, payload: userDetail }))
         .catch((error) => console.log(error.message));
       handleModalVisibility("");
     }

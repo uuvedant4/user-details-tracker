@@ -1,6 +1,7 @@
-import { createContext, useReducer, useEffect, useMemo } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import { detailsReducer } from "../../reducers/DetailsReducer/DetailsReducer";
 import axios from "axios";
+import { GET_USER_DETAILS } from "../../reducers/DetailsReducer/actionTypes";
 
 const INITIAL_STATE = [];
 
@@ -11,8 +12,8 @@ export const DetailsContextProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/")
-      .then(({ data }) => dispatch({ type: "GET_USER_DETAILS", payload: data }))
+      .get("/")
+      .then(({ data }) => dispatch({ type: GET_USER_DETAILS, payload: data }))
       .catch((error) => console.log(error.message));
   }, [state]);
 

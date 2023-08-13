@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RevolvingDot } from "react-loader-spinner";
+import { DELETE_DETAIL } from "../../reducers/DetailsReducer/actionTypes";
 
 const DetailsTable = forwardRef(function DetailsTable(props, senderRef) {
   const { state: userDetails, dispatch } = useContext(DetailsContext);
@@ -21,8 +22,8 @@ const DetailsTable = forwardRef(function DetailsTable(props, senderRef) {
 
   const handleDeleteDetail = (id) => {
     axios
-      .delete(`http://localhost:5000/delete/${id}`)
-      .then(() => dispatch({ type: "DELETE_DETAIL", payload: id }))
+      .delete(`/delete/${id}`)
+      .then(() => dispatch({ type: DELETE_DETAIL, payload: id }))
       .catch((error) => console.log(error.message));
   };
 
@@ -49,11 +50,11 @@ const DetailsTable = forwardRef(function DetailsTable(props, senderRef) {
     );
 
     axios
-      .post("http://localhost:5000/send", selectedData)
-      .then(() => {
+      .post("/send", selectedData)
+      .then(({ email }) => {
         setSelectedRows([]);
         setLoading(false);
-        toast("Email sent successfully");
+        toast(`Email sent to ${email}`);
       })
       .catch((error) => {
         toast("Error sending emails:", error.message);

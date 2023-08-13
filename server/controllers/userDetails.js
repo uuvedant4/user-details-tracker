@@ -121,7 +121,9 @@ const sendUserDetails = async (req, res) => {
 
     const info = await transporter.sendMail(message);
     console.log("Email sent: ", info.messageId);
-    res.status(200).json({ message: "Email sent successfully" });
+    res
+      .status(200)
+      .json({ message: "Email sent successfully", email: message.to });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to send email" });
